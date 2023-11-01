@@ -1,9 +1,22 @@
+; #Notrayicon
+#SingleInstance force
+
 #InstallKeybdHook
 #InstallMouseHook
 Menu, Tray, Icon, %A_WinDir%\system32\shell32.dll, 44
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, reload
 Menu, Tray, Add, Exit, closeall
+
+f1:: ;Restart script and clear all variables.
+  reload
+return
+
+; tray := A_TrayMenu
+; A_TrayMenu.Add("Restart", A_MenuHandler4)
+; A_MenuHandler4(ItemName, ItemPos, MyMenu) {
+;   reload
+; }
 
 SetTimer, CheckTime, 60000 ; updates every 1 minute
 
@@ -43,10 +56,9 @@ rctrl::
   Gui, Destroy
 Return
 
-reload:
-  Reload
-Return
-
 closeall:
 ExitApp
-Return
+
+reload:
+  Reload
+
