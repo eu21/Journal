@@ -4,6 +4,7 @@ Menu, Tray, Icon, %A_WinDir%\system32\shell32.dll, 44
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, reload
 Menu, Tray, Add, Exit, closeall
+color:=cBlack
 
 SetTimer, CheckTime, 60000 ; updates every 1 minute
 
@@ -33,8 +34,20 @@ FormatMinutes(NumberOfMinutes) ; Convert mins to hh:mm
 Return mmss
 }
 
-rctrl::
-  Gui, Add, Text, w150 Center, % "Active Time: " FormatMinutes(ActiveTime) "`nIdle Time: " FormatMinutes(IdleTime) "`nTotal: " FormatMinutes(TotalTime)
+rctrl:: ;on Right Ctrl press
+  Gui, Font, s15
+
+  if (FormatMinutes(ActiveTime)<FormatMinutes(IdleTime))
+  {
+    color:="cRed"
+  }
+  Else
+  {
+    color:="cGreen"
+  }
+
+  Gui, Add, Text, w350 Right %color%, % "Active Time: " FormatMinutes(ActiveTime) "`nIdle Time: " FormatMinutes(IdleTime) "`nTotal: " FormatMinutes(TotalTime)
+  ; Gui, Add, Text, w350 Right cGreen, % "Active Time: " FormatMinutes(ActiveTime) "`nIdle Time: " FormatMinutes(IdleTime) "`nTotal: " FormatMinutes(TotalTime)
   Gui, -SysMenu
 
   Gui, Show
@@ -43,10 +56,13 @@ rctrl::
   Gui, Destroy
 Return
 
+RAlt:: ;Restart script and clear all variables on Right Alt press
+  reload
+return
+
 reload:
   Reload
 Return
 
 closeall:
 ExitApp
-Return
