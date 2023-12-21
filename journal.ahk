@@ -1,3 +1,5 @@
+#SingleInstance
+
 #InstallKeybdHook
 #InstallMouseHook
 Menu, Tray, Icon, %A_WinDir%\system32\shell32.dll, 44
@@ -56,12 +58,12 @@ rctrl:: ;on Right Ctrl press
   Gui, Destroy
 Return
 
-RAlt:: ;Restart script and clear all variables on Right Alt press
-  reload
-return
+;RAlt:: ;Restart script and clear all variables on Right Alt press
+;  reload
+;return
 
 reload:
-  Reload
+  reload
 Return
 
 closeall:
